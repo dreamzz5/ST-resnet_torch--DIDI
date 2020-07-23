@@ -100,10 +100,9 @@ class ST_resnet(nn.Module):
         self.inputs_t = forward_network(t_dim[0], t_dim[0], t_dim[1], t_dim[2], residual_units)
     def forward(self,input_c, input_p, input_t, input_dayinfo):
         output=0
-        input_c=torch.cat([self.conv1(input_c[:,0:2,:,:]),self.conv2(input_c[:,2:,:,:])],dim=1)
         output += self.inputs_c(input_c)
-        #output += self.inputs_p(input_p)
-        #output += self.inputs_t(input_t)
+        output += self.inputs_p(input_p)
+        output += self.inputs_t(input_t)
         if self.day_dim>0:
             day_output=self.day_info(input_dayinfo)
             day_output=day_output.view(-1, 2, self.map_height, self.map_width)
@@ -129,20 +128,22 @@ class TrainableEltwiseLayer(nn.Module):
 
 def forward_network(in_channels,nb_flow,map_height,map_width,nb_residual_unit):
     out_channels= 64
-    in_channels = 64
     return nn.Sequential(OrderedDict([
-        ('conv',nn.Conv2d(in_channels, out_channels, kernel_size=3,stride=1, padding=0, bias= True)),
-        ('dconv', nn.ConvTranspose2d(out_channels, 64, kernel_size=3,stride=1, padding=0, bias= True)),
+        ('conv',nn.Conv2d(in_channels, out_channels, kernel_size=3,stride=1, padding=1, bias= True)),
         ('ResUnits', ResUnits(_residual_unit, nb_filter = 64, repetations = nb_residual_unit)),
         ('relu', nn.ReLU()),
-        ('conv2', conv3x3(in_channels = 64, out_channels = 2)),
-        #('FusionLayer', TrainableEltwiseLayer(n = 2, h = map_height, w = map_width))
+        ('conv1', conv3x3(in_channels = 64, out_channels = 32)),
+        ('conv2', conv3x3(in_channels=32, out_channels=16)),
+        ('conv3', conv3x3(in_channels=16, out_channels=2)),
+        # ('conv1', nn.Conv2d(out_channels,out_channels , kernel_size=9,stride=1, padding=4, bias=True)),
+        # ('conv2', nn.Conv2d(out_channels, 2, kernel_size=9, stride=1, padding=4, bias=True)),
+        ('FusionLayer', TrainableEltwiseLayer(n = 2, h = map_height, w = map_width))
     ]))
 
 if __name__=='__main__':
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print('device', device)
-    model = ST_resnet((6,19,18),(2,19,18),(2,19,18),1,57).to(device)
+    model = ST_resnet((10,19,18),(2,19,18),(2,19,18),1,57).to(device)
     pytorch_total_params = sum(p.numel() for p in model.parameters())
     print(pytorch_total_params)
     pytorch_total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)

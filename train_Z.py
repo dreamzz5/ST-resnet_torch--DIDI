@@ -33,17 +33,14 @@ model_teacher=torch.load('./result/best_model.pkl')
 model_teacher.eval().to('cuda')
 #model=ST_resnet(c_dim,p_dim,t_dim,residual_units=2,day_dim=-1).to('cuda')
 model=torch.load('./result/best_model.pkl')
-
+for para in model_teacher.parameters():
+    print(torch.min(para.data))
 def recursive_relu_apply(module_top):
     for idx, module in module_top._modules.items():
         recursive_relu_apply(module)
         if module.__class__.__name__ == 'Conv2d' and module.in_channels==8:
             module_top._modules[idx] = nn.Conv2d(1, 1, kernel_size=3,stride=1, padding=1, bias= True)
             break
-def print_grad(a,b,c):
-    print('\n', a)
-    print('\n', b)
-    print('\n', c)
 #recursive_relu_apply(model)
 model.__init__(c_student_dim,p_dim,t_dim,residual_units=2,day_dim=-1)
 model.conv2=nn.Conv2d(1, 32, kernel_size=3,stride=1, padding=1, bias= True)

@@ -4,18 +4,12 @@ import datetime as dt
 import numpy as np
 import torch
 def process_data( ):
-    data=np.load('./data/all_data_30days.npy')
-    #data=data[0:14420]
-    new_data=np.zeros([4326,2,19,18])
-    for i in range(4326):
-        new_data[i,0]=np.sum(data[i*5:(i+1)*5,0],axis=0)
-        new_data[i,1]=np.sum(data[i*5:(i+1)*5,1],axis=0)
-    data=new_data
+    data=np.load('./data/all_data_30days_10min.npy')
     #norm
     MAX_FLOWIO=np.max(data)
     data=data/MAX_FLOWIO
     data_range= data.shape[0]
-    Startindex,Endindex=0,int(DAYTIMESTEP*28)
+    Startindex,Endindex=0,int(DAYTIMESTEP*15)
     interval_p,interval_t=1,7
     depends = [range(1, len_c+1),
                [interval_p * DAYTIMESTEP * i for i in range(1, len_p + 1)],

@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4eb33453-b691-48a7-89f1-3cd167fde510" name="Default Changelist" comment="" />
+    <list default="true" id="4eb33453-b691-48a7-89f1-3cd167fde510" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/result/plot_grad.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Guide_BP.py" beforeDir="false" afterPath="$PROJECT_DIR$/Guide_BP.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ST_resnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/ST_resnet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Z_result/Untitled.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Z_result/Untitled.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Z_result/Z_output_zeros_decay.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Z_result/Z_output_zeros_decay.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Z_result/best_model.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/Z_result/best_model.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/all_data_30days.npy" beforeDir="false" afterPath="$PROJECT_DIR$/data/all_data_30days.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/emissionprob.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grad_guide_BP.py" beforeDir="false" afterPath="$PROJECT_DIR$/grad_guide_BP.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradient.py" beforeDir="false" afterPath="$PROJECT_DIR$/gradient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guide_BP_result/Test_c_grad.npy" beforeDir="false" afterPath="$PROJECT_DIR$/guide_BP_result/Test_c_grad.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guide_BP_result/input_Test_c.npy" beforeDir="false" afterPath="$PROJECT_DIR$/guide_BP_result/input_Test_c.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guide_BP_result/values.npy" beforeDir="false" afterPath="$PROJECT_DIR$/guide_BP_result/values.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guide_BP_result/vision.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/guide_BP_result/vision.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/params.py" beforeDir="false" afterPath="$PROJECT_DIR$/params.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/process.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/Test_c_grad.npy" beforeDir="false" afterPath="$PROJECT_DIR$/result/Test_c_grad.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/best_model.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/result/best_model.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/prediction_scores.txt" beforeDir="false" afterPath="$PROJECT_DIR$/result/prediction_scores.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/values.npy" beforeDir="false" afterPath="$PROJECT_DIR$/result/values.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result/vision.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/result/vision.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/startprob.npy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_Z.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_Z.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transmat.npy" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,7 +42,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/DIDI_explain" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/process.py" root0="SKIP_HIGHLIGHTING" />
@@ -40,8 +67,8 @@
       <recent name="C:\Users\dream\Desktop\ST-resnet_torch -DIDI\guide_BP_result" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.train">
-    <configuration name="ST_resnet" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.plot_grad">
+    <configuration name="Guide_BP" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ST-resnet" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -53,7 +80,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ST_resnet.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Guide_BP.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -83,7 +110,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="process" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="gradient" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ST-resnet" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -95,7 +122,28 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/process.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gradient.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="plot_grad" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ST-resnet" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/result" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/result/plot_grad.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -125,34 +173,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="train_Z" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="ST-resnet" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_Z.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.train" />
-        <item itemvalue="Python.train_Z" />
-        <item itemvalue="Python.ST_resnet" />
+        <item itemvalue="Python.plot_grad" />
         <item itemvalue="Python.grad_guide_BP" />
-        <item itemvalue="Python.process" />
+        <item itemvalue="Python.gradient" />
+        <item itemvalue="Python.train" />
+        <item itemvalue="Python.Guide_BP" />
       </list>
     </recent_temporary>
   </component>
@@ -194,65 +221,72 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1594796264566" />
-    <state width="1533" height="462" key="DebuggerActiveHint" timestamp="1595258556954">
+    <state width="1533" height="462" key="DebuggerActiveHint" timestamp="1595528563506">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1533" height="462" key="DebuggerActiveHint/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595258556954" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1595301804043">
+    <state width="1533" height="462" key="DebuggerActiveHint/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595528563506" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1595495501038">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595301804043" />
-    <state width="1094" height="343" key="GridCell.Tab.0.bottom" timestamp="1595301804913">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595495501038" />
+    <state width="1899" height="464" key="GridCell.Tab.0.bottom" timestamp="1595528557980">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1094" height="343" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595301804913" />
-    <state width="1094" height="343" key="GridCell.Tab.0.center" timestamp="1595301804913">
+    <state width="1899" height="464" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595528557980" />
+    <state width="1899" height="464" key="GridCell.Tab.0.center" timestamp="1595528557980">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1094" height="343" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595301804913" />
-    <state width="1094" height="343" key="GridCell.Tab.0.left" timestamp="1595301804913">
+    <state width="1899" height="464" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595528557980" />
+    <state width="1899" height="464" key="GridCell.Tab.0.left" timestamp="1595528557979">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1094" height="343" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595301804913" />
-    <state width="1094" height="343" key="GridCell.Tab.0.right" timestamp="1595301804913">
+    <state width="1899" height="464" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595528557979" />
+    <state width="1899" height="464" key="GridCell.Tab.0.right" timestamp="1595528557980">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1094" height="343" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595301804913" />
-    <state width="1094" height="343" key="GridCell.Tab.1.bottom" timestamp="1595301804914">
+    <state width="1899" height="464" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595528557980" />
+    <state width="1899" height="464" key="GridCell.Tab.1.bottom" timestamp="1595528559812">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1094" height="343" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595301804914" />
-    <state width="1094" height="343" key="GridCell.Tab.1.center" timestamp="1595301804913">
+    <state width="1899" height="464" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595528559812" />
+    <state width="1899" height="464" key="GridCell.Tab.1.center" timestamp="1595528559812">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1094" height="343" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595301804913" />
-    <state width="1094" height="343" key="GridCell.Tab.1.left" timestamp="1595301804913">
+    <state width="1899" height="464" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595528559812" />
+    <state width="1899" height="464" key="GridCell.Tab.1.left" timestamp="1595528559812">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1094" height="343" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595301804913" />
-    <state width="1094" height="343" key="GridCell.Tab.1.right" timestamp="1595301804913">
+    <state width="1899" height="464" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595528559812" />
+    <state width="1899" height="464" key="GridCell.Tab.1.right" timestamp="1595528559812">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1094" height="343" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595301804913" />
+    <state width="1899" height="464" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595528559812" />
     <state x="461" y="162" key="SettingsEditor" timestamp="1594482464518">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1594482464518" />
-    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1595229343794">
+    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1595340946176">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595229343794" />
-    <state x="640" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1595167028418">
+    <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595340946176" />
+    <state x="640" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1595407642921">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="640" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595167028418" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1595243864745">
+    <state x="640" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595407642921" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1595472759208">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595243864745" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1152.2008@0.0.1920.1040" timestamp="1595472759208" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/train_Z.py</url>
+          <line>44</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">

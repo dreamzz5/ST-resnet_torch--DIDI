@@ -46,6 +46,14 @@ class GuidedBackpropReLUModel:
 
         return output
 
+def Intergrated_grad(input,num_steps):
+    baseline=torch.zeros(input.shape).cuda()
+    interpolated_input=torch.zeros([num_steps+1]+list(input.shape[1:])).to('cuda')
+    for step in range(num_steps + 1):
+        interpolated_input[step]= baseline + (step / num_steps) * (input - baseline)
+    return interpolated_input
+
+
 
 od_label=np.load('./data/all_od_7days.npy')
 od_label=torch.from_numpy(od_label)
@@ -65,6 +73,14 @@ def grad(outputs,val_c,optimizer,model,start):
     grad=softmax(grad)
     label=softmax(od_label[start:end])
     loss=torch.sum(label*torch.log(label/grad))
+    return loss
+
+def dy_dx_loss(outputs,Train_c,model,start):
+    out=torch.sum(outputs[:,0,5,3])
+    out.backward()
+    grad=Train_c.grad()
+    grad[grad<0]=0
+    loss=torch.sum(grad)
     return loss
 
 

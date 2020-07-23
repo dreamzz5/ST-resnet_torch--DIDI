@@ -1,2 +1,2 @@
-Keras MSE on test, nan
-Rescaled MSE on test, nan
+Keras MSE on test, 0.001684
+Rescaled MSE on test, 64.040285
