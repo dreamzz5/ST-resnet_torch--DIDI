@@ -37,7 +37,8 @@ loss_fn = nn.MSELoss()
 #outputs=outputs*MAX_FLOWIO
 grad=np.zeros([2,19,18,10,19,18])
 values=np.zeros([2,19,18])
-for v in [239]:
+times=239
+for v in [times]:
     test_c = nn.Parameter(Test_c[v].unsqueeze(0)).cuda()
     test_p = nn.Parameter(Test_p[v].unsqueeze(0)).cuda()
     test_t = nn.Parameter(Test_t[v].unsqueeze(0)).cuda()
@@ -56,11 +57,12 @@ for v in [239]:
                     print(1)
 print(np.max(grad))
 np.save('./guide_BP_result/Test_c_grad',grad)
+np.save('./guide_BP_result/input_Test_c',torch.cat((Test_c[times+1].cpu(),Test_c[times][-1].unsqueeze(0).cpu()),dim=0))
 #Intergrated grad
 #params
 num_steps=49
 grad=torch.zeros([num_steps+1,10,19,18])
-times=239
+
 for v in [times]:
     test_c=Intergrated_grad(Test_c[v].unsqueeze(0),num_steps=num_steps)
     test_p=Test_p[v].repeat(num_steps+1,1,1,1)
