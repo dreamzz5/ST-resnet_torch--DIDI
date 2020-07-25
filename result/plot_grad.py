@@ -6,20 +6,7 @@ from torch.autograd import Function
 from torchvision import models
 
 
-def preprocess_image(img):
-    means = [0.485, 0.456, 0.406]
-    stds = [0.229, 0.224, 0.225]
 
-    preprocessed_img = img.copy()[:, :, ::-1]
-    for i in range(3):
-        preprocessed_img[:, :, i] = preprocessed_img[:, :, i] - means[i]
-        preprocessed_img[:, :, i] = preprocessed_img[:, :, i] / stds[i]
-    preprocessed_img = \
-        np.ascontiguousarray(np.transpose(preprocessed_img, (2, 0, 1)))
-    preprocessed_img = torch.from_numpy(preprocessed_img)
-    preprocessed_img.unsqueeze_(0)
-    input = preprocessed_img.requires_grad_(True)
-    return input
 
 
 def show_cam_on_image(img, mask,file):
@@ -57,7 +44,7 @@ if __name__ == '__main__':
     grad = process_grad(grad,img)
     show_cam_on_image(img, grad,save_file)
     #guide bp
-    guide_bp=np.load('../guide_BP_result/Test_c_grad.npy')[0,5,3,0]
+    guide_bp=np.load('../guide_BP_result/Test_c_grad.npy')[0,1,3,0]
     guide_bp = process_grad(guide_bp, img)
     save_file = './plot_result/guide_bp.jpg'
     show_cam_on_image(img, guide_bp,save_file)
@@ -88,4 +75,9 @@ if __name__ == '__main__':
     grouthtrue=np.load('../data/od_10min_8.npy')[48]
     loss = process_grad(grouthtrue, img)
     save_file = './plot_result/grouthtrue.jpg'
+    show_cam_on_image(img, loss,save_file)
+    #input
+    inputs=np.load('../guide_BP_result/input_Test_c.npy')[2]
+    loss = process_grad(inputs, img)
+    save_file = './plot_result/inputs.jpg'
     show_cam_on_image(img, loss,save_file)

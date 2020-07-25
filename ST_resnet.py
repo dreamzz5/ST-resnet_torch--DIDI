@@ -123,7 +123,6 @@ class TrainableEltwiseLayer(nn.Module):
     def forward(self, x):
         # assuming x is of size b-1-h-w
         x = x * self.weights # element-wise multiplication
-
         return x
 
 def forward_network(in_channels,nb_flow,map_height,map_width,nb_residual_unit):
@@ -132,11 +131,7 @@ def forward_network(in_channels,nb_flow,map_height,map_width,nb_residual_unit):
         ('conv',nn.Conv2d(in_channels, out_channels, kernel_size=3,stride=1, padding=1, bias= True)),
         ('ResUnits', ResUnits(_residual_unit, nb_filter = 64, repetations = nb_residual_unit)),
         ('relu', nn.ReLU()),
-        ('conv1', conv3x3(in_channels = 64, out_channels = 32)),
-        ('conv2', conv3x3(in_channels=32, out_channels=16)),
-        ('conv3', conv3x3(in_channels=16, out_channels=2)),
-        # ('conv1', nn.Conv2d(out_channels,out_channels , kernel_size=9,stride=1, padding=4, bias=True)),
-        # ('conv2', nn.Conv2d(out_channels, 2, kernel_size=9, stride=1, padding=4, bias=True)),
+        ('conv1', conv3x3(in_channels = 64, out_channels = 2)),
         ('FusionLayer', TrainableEltwiseLayer(n = 2, h = map_height, w = map_width))
     ]))
 
