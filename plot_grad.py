@@ -10,6 +10,10 @@ def show_cam_on_image(img, mask,file):
     #cv2.imwrite(file, np.uint8(255 * cam))
     return np.uint8(255 * cam)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1f82c1483c4a0826507e876a1dcaf6a83aca443c
 def deprocess_image(img):
     """ see https://github.com/jacobgil/keras-grad-cam/blob/master/grad-cam.py#L65 """
     img = img - np.mean(img)
@@ -20,15 +24,24 @@ def deprocess_image(img):
     return np.uint8(img * 255)
 def process_grad(grad,img):
     #grad=np.abs(grad)
+<<<<<<< HEAD
     #grad = np.maximum(grad, 0)
+=======
+    grad = np.maximum(grad, 0)
+>>>>>>> 1f82c1483c4a0826507e876a1dcaf6a83aca443c
     grad = cv2.resize(grad, img.shape[:-1])
     grad = grad - np.min(grad)
     grad = grad / np.max(grad)
     grad = np.flip(grad,0)
     return grad
 
+<<<<<<< HEAD
 x=10
 y=10
+=======
+x=5
+y=3
+>>>>>>> 1f82c1483c4a0826507e876a1dcaf6a83aca443c
 time=48
 nums_step=10
 
@@ -72,6 +85,7 @@ if __name__=='__main__':
     ax[1, 5].set_title('ground_true_out')
     plt.axis('off')
     plt.show()
+<<<<<<< HEAD
     _, ax = plt.subplots(2, 6, figsize=(15, 8))
     for i in range(4):
         inflow=process_grad(grad[i*2,1],img)
@@ -105,4 +119,6 @@ if __name__=='__main__':
     ax[1, 5].set_title('ground_true_out')
     plt.axis('off')
     plt.show()
+=======
+>>>>>>> 1f82c1483c4a0826507e876a1dcaf6a83aca443c
 

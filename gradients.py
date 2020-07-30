@@ -17,11 +17,20 @@ TrainX, TrainY, TestX, TestY = process_data()
 Test_c, Test_p, Test_t= (torch.from_numpy(TrainX[0])
                           , torch.from_numpy(TrainX[1]), torch.from_numpy(TrainX[2]))
 #load model
+<<<<<<< HEAD
 model=torch.load('./result/best_model.pkl').train()
 model1=torch.load('./result/best_model.pkl').train()
 model2=torch.load('./result/best_model.pkl').train()
 def gradient(x,y,timeindex,num_steps):
     grad=torch.zeros([8,2,19,18])
+=======
+model=torch.load('./result/best_model.pkl')
+model1=torch.load('./result/best_model.pkl')
+model2=torch.load('./result/best_model.pkl')
+model.eval()
+def gradient(x,y,timeindex,num_steps):
+    grad=torch.zeros([8,10,19,18])
+>>>>>>> 1f82c1483c4a0826507e876a1dcaf6a83aca443c
     test_c = nn.Parameter(Test_c[timeindex].unsqueeze(0).type(torch.FloatTensor).cuda())
     test_p = nn.Parameter(Test_p[timeindex].unsqueeze(0).type(torch.FloatTensor).cuda())
     test_t = nn.Parameter(Test_t[timeindex].unsqueeze(0).type(torch.FloatTensor).cuda())
@@ -39,6 +48,7 @@ def gradient(x,y,timeindex,num_steps):
     Intergrated_out=model(test_c_intergrated,test_p_intergrated,test_t_intergrated,-1)
     Intergrated_guidebp_out=guide_model1(test_c_intergrated, test_p_intergrated, test_t_intergrated, -1)
     for i in range(nb_channel):
+<<<<<<< HEAD
         grad1 = torch.zeros(num_steps + 1, 2, 19, 18)
         grad2 = torch.zeros(num_steps + 1, 2, 19, 18)
         optimizer.zero_grad()
@@ -60,6 +70,29 @@ def gradient(x,y,timeindex,num_steps):
         grad2 = (grad2[:-1] + grad2[1:]) / 2.0
         avg_grad = torch.mean(grad2, dim=0)
         grad[i+6] = avg_grad * Test_c[timeindex,-3:-1].unsqueeze(0)
+=======
+        grad1 = torch.zeros(num_steps + 1, 10, 19, 18)
+        grad2 = torch.zeros(num_steps + 1, 10, 19, 18)
+        optimizer.zero_grad()
+        ouputs[0,i,x,y].backward(retain_graph=True)
+        grad[i]=test_c.grad.cpu()
+        optimizer1.zero_grad()
+        guide_output[0,i,x,y].backward(retain_graph=True)
+        grad[i+2]=test_c.grad.cpu()
+        for j in range(num_steps+1):
+            optimizer2.zero_grad()
+            Intergrated_out[j,i,x,y].backward(retain_graph=True)
+            grad1[j]=test_c_intergrated.grad[j].cpu()
+            optimizer3.zero_grad()
+            Intergrated_guidebp_out[j,i,x,y].backward(retain_graph=True)
+            grad2[j]=test_c_intergrated.grad[j].cpu()
+        grad1 = (grad1[:-1] + grad1[1:]) / 2.0
+        avg_grad = torch.mean(grad1, dim=0)
+        grad[i+4] = avg_grad * Test_c[timeindex].unsqueeze(0)
+        grad2 = (grad2[:-1] + grad2[1:]) / 2.0
+        avg_grad = torch.mean(grad2, dim=0)
+        grad[i+6] = avg_grad * Test_c[timeindex].unsqueeze(0)
+>>>>>>> 1f82c1483c4a0826507e876a1dcaf6a83aca443c
 
     #ablation
     test_c = Test_c[timeindex].unsqueeze(0).type(torch.FloatTensor).cuda()
