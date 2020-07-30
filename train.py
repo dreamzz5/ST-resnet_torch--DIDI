@@ -3,19 +3,18 @@ import  numpy as np
 from process import *
 from ST_resnet import *
 import torch
+import random
 from torch.nn import init
 import  torch.utils.data as Data
-from tqdm import tqdm
 from torch.autograd import Variable
 from Guide_BP import *
+import pickle
 # data dim
-c_dim = (nb_channel* len_c,HEIGHT, WIDTH)
+c_dim = (nb_channel*len_c,HEIGHT, WIDTH)
 p_dim = (nb_channel*len_p,HEIGHT, WIDTH)
 t_dim = (nb_channel*len_t,HEIGHT, WIDTH)
-
 # load data
 TrainX, TrainY, TestX, TestY = process_data()
-
 def train(TrainX, TrainY):
     # to torch
     Train_c, Train_p, Train_t = (torch.from_numpy(TrainX[0])
@@ -28,20 +27,20 @@ def train(TrainX, TrainY):
     Train_t = Train_t.type(torch.FloatTensor).to('cuda')
     TrainY = TrainY.type(torch.FloatTensor).to('cuda')
     # validation data
-    index = int(Train_c.shape[0] * 0.875)
+    index = int(Train_c.shape[0] *(14/15))
     Train_c, Validation_c = Train_c[:index], Train_c[index:]
     Train_p, Validation_p = Train_p[:index], Train_p[index:]
     Train_t, Validation_t = Train_t[:index], Train_t[index:]
     TrainY, ValidationY = TrainY[:index], TrainY[index:]
+    #np.save('./result/Train_c',Train_c.detach().cpu().numpy())
     #load model
-    model=ST_resnet(c_dim,p_dim,t_dim,residual_units=2,day_dim=-1)
+    model=ST_resnet(c_dim,p_dim,t_dim,residual_units=1,day_dim=-1)
     loss_fn=nn.MSELoss()
-    Train_c=nn.Parameter(Train_c)
     optimizer = torch.optim.Adam(list(model.parameters()),lr=1e-4)
     model.to('cuda')
     loss_fn.to('cuda')
     #params
-    epcho=100
+    epcho=200
     batchsize= 100
     datasize= Train_c.shape[0]
     lens =int(datasize/batchsize)+1
@@ -117,31 +116,13 @@ def test(TestX, TestY):
     f = open('./result/prediction_scores.txt', 'a')
     f.seek(0)
     f.truncate()  # 清空文件
-    f.write("Keras MSE on test, %f\n" % (mse_loss / len))
+    f.write("MSE on test, %f\n" % (mse_loss / len))
     f.write("Rescaled MSE on test, %f\n" % (mse_loss / len * MAX_FLOWIO ** 2))
     f.close()
     return (mse_loss / len * MAX_FLOWIO ** 2),time_loss,out
 
 if __name__ == '__main__':
     #trian
-    train(TestX, TestY)
+    train(TrainX, TrainY)
     #test
     _,time_loss,__=test(TestX, TestY)
-    np.save('./result/time_loss',time_loss)
-    #test grad bp
-    add_res=np.zeros([19,18])
-    origin_res=np.zeros([19,18])
-    x=[TestX[0][239][np.newaxis,:],TestX[1][239][np.newaxis,:],TestX[2][239][np.newaxis,:]]
-    y=TestY[239][np.newaxis,:]
-    _, _, out = test(x, y)
-    origin_res[0:19,0:18] = out[0,0,5,3]
-    for i in range(19):
-        for j in range(18):
-            t=x[0][0,0,i,j]
-            x[0][0, 0, i, j]=0
-            _,_,out=test(x, y)
-            add_res[i,j]=out[0,0,5,3]
-            x[0][0, 0, i, j]=t
-
-    np.save('./result/add_grad_loss',add_res)
-    np.save('./result/origin_loss', origin_res)

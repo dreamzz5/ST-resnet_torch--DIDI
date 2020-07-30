@@ -37,7 +37,6 @@ class _residual_unit(nn.Module):
 
     def forward(self, x):
         residual = x
-
         out = self.bn1(x)
         out = self.relu(out)
         out = self.conv(out)
@@ -46,23 +45,29 @@ class _residual_unit(nn.Module):
         out = self.conv(x)
         out += residual # short cut
         return out
+def sequential_residual_unit(nb_filter):
+    return nn.Sequential(OrderedDict([
+        ('bn1',nn.BatchNorm2d(nb_filter,affine=True)),
+        ('relu1',nn.ReLU()),
+        ('conv1',conv3x3(nb_filter,nb_filter)),
+        ('bn2', nn.BatchNorm2d(nb_filter, affine=True)),
+        ('relu2', nn.ReLU()),
+        ('conv2', conv3x3(nb_filter, nb_filter)),
+    ]))
+
+
 
 class ResUnits(nn.Module):
-    def __init__(self, residual_unit, nb_filter, repetations=1):
+    def __init__(self, residual_unit, nb_filter):
         super(ResUnits, self).__init__()
-        self.stacked_resunits = self.make_stack_resunits(residual_unit, nb_filter, repetations)
-
-    def make_stack_resunits(self, residual_unit, nb_filter, repetations):
+        self.stacked_resunits = self.make_stack_resunits(residual_unit, nb_filter)
+    def make_stack_resunits(self, residual_unit, nb_filter):
         layers = []
-
-        for i in range(repetations):
-            layers.append(residual_unit(nb_filter))
-
+        layers.append(residual_unit(nb_filter))
         return nn.Sequential(*layers)
 
     def forward(self, x):
-        x = self.stacked_resunits(x)
-
+        x = self.stacked_resunits(x)+x
         return x
 
 class ST_resnet(nn.Module):
@@ -84,7 +89,10 @@ class ST_resnet(nn.Module):
         self.day_dim=day_dim
         self.relu = torch.relu
         self.tanh = torch.tanh
-        self.c_dim=c_dim
+        self.rnn1 = nn.RNN(1,10,2,bias=False)
+        self.rnn2 = nn.RNN(1,10,2,bias=False)
+        self.linear1=nn.Linear(10,1,bias=False)
+        self.linear2=nn.Linear(10,1,bias=False)
         self.conv1=nn.Conv2d(2, 32, kernel_size=3,stride=1, padding=1, bias= True)
         self.conv2=nn.Conv2d(8, 32, kernel_size=3, stride=1, padding=1, bias=True)
         _,self.map_height,self.map_width=c_dim
@@ -95,14 +103,14 @@ class ST_resnet(nn.Module):
             ('fc', nn.Linear(10, 2 * self.map_height * self.map_width, bias=True)),
             ('relu2', nn.ReLU()),
         ]))
-        self.inputs_c = forward_network(self.c_dim[0],self.c_dim[0],self.c_dim[1],self.c_dim[2],residual_units)
+        self.inputs_c = forward_network(c_dim[0], c_dim[0], c_dim[1], c_dim[2], residual_units)
         self.inputs_p = forward_network(p_dim[0], p_dim[0], p_dim[1], p_dim[2], residual_units)
         self.inputs_t = forward_network(t_dim[0], t_dim[0], t_dim[1], t_dim[2], residual_units)
     def forward(self,input_c, input_p, input_t, input_dayinfo):
         output=0
         output += self.inputs_c(input_c)
-        output += self.inputs_p(input_p)
-        output += self.inputs_t(input_t)
+        #output += self.inputs_p(input_p)
+        #output += self.inputs_t(input_t)
         if self.day_dim>0:
             day_output=self.day_info(input_dayinfo)
             day_output=day_output.view(-1, 2, self.map_height, self.map_width)
@@ -123,30 +131,28 @@ class TrainableEltwiseLayer(nn.Module):
     def forward(self, x):
         # assuming x is of size b-1-h-w
         x = x * self.weights # element-wise multiplication
-
         return x
 
 def forward_network(in_channels,nb_flow,map_height,map_width,nb_residual_unit):
-    out_channels= 64
+    out_channels= 16
     return nn.Sequential(OrderedDict([
         ('conv',nn.Conv2d(in_channels, out_channels, kernel_size=3,stride=1, padding=1, bias= True)),
-        ('ResUnits', ResUnits(_residual_unit, nb_filter = 64, repetations = nb_residual_unit)),
+        ('ResUnits1', ResUnits(sequential_residual_unit, nb_filter = out_channels)),
+        ('ResUnits2', ResUnits(sequential_residual_unit, nb_filter = out_channels)),
         ('relu', nn.ReLU()),
-        ('conv1', conv3x3(in_channels = 64, out_channels = 32)),
-        ('conv2', conv3x3(in_channels=32, out_channels=16)),
-        ('conv3', conv3x3(in_channels=16, out_channels=2)),
-        # ('conv1', nn.Conv2d(out_channels,out_channels , kernel_size=9,stride=1, padding=4, bias=True)),
-        # ('conv2', nn.Conv2d(out_channels, 2, kernel_size=9, stride=1, padding=4, bias=True)),
-        ('FusionLayer', TrainableEltwiseLayer(n = 2, h = map_height, w = map_width))
+        ('conv1', nn.Conv2d(out_channels, out_channels, kernel_size=3, stride=1, padding=1, bias=True)),
+        ('conv2', nn.Conv2d(out_channels, 2, kernel_size=3, stride=1, padding=1, bias=True)),
+        #('conv1', conv3x3(out_channels = 64, out_channels = 2)),
+        #('FusionLayer', TrainableEltwiseLayer(n = 2, h = map_height, w = map_width))
     ]))
 
 if __name__=='__main__':
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print('device', device)
-    model = ST_resnet((10,19,18),(2,19,18),(2,19,18),1,57).to(device)
+    model = ST_resnet((6,19,18),(2,19,18),(2,19,18),2,57).to(device)
     pytorch_total_params = sum(p.numel() for p in model.parameters())
     print(pytorch_total_params)
     pytorch_total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print('trainable params:', pytorch_total_params)
     #print(model)
-    summary(model,[(10,19,18),(2,19,18),(2,19,18),(1,1,57)])
+    summary(model,[(6,19,18),(2,19,18),(2,19,18),(1,1,57)])

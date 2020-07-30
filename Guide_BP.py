@@ -28,7 +28,7 @@ class GuidedBackpropReLU(Function):
 class GuidedBackpropReLUModel:
     def __init__(self, model):
         self.model = model
-        self.model.eval()
+        self.model.train()
         def recursive_relu_apply(module_top):
             for idx, module in module_top._modules.items():
                 recursive_relu_apply(module)
@@ -52,7 +52,13 @@ def Intergrated_grad(input,num_steps):
     for step in range(num_steps + 1):
         interpolated_input[step]= baseline + (step / num_steps) * (input - baseline)
     return interpolated_input
-
+def Ablation(input,num_steps,x,y):
+    baseline=torch.zeros(input.shape).cuda()
+    interpolated_input=input.repeat(num_steps+1,1,1,1)
+    for step in range(num_steps + 1):
+        interpolated_input[step,:,x,y]= baseline[0,:,x,y]  + (step / num_steps) * (input[0,:,x,y] - baseline[0,:,x,y])
+    #print(interpolated_input[:,0,x,y])
+    return interpolated_input
 
 
 od_label=np.load('./data/all_od_7days.npy')
@@ -83,4 +89,19 @@ def dy_dx_loss(outputs,Train_c,model,start):
     loss=torch.sum(grad)
     return loss
 
+weight=[]
+def print_TrainableEltwiseLayer(module_top):
+    for idx, module in module_top._modules.items():
+        print_TrainableEltwiseLayer(module)
+        if module.__class__.__name__ == 'TrainableEltwiseLayer':
+            weight.append(module.weights.cpu().detach().numpy())
+    return  weight
+
+weight=[]
+def print_linear(module_top):
+    for idx, module in module_top._modules.items():
+        print_TrainableEltwiseLayer(module)
+        if module.__class__.__name__ == 'linear':
+            weight.append(module.weights.cpu().detach().numpy())
+    return  weight
 

@@ -9,9 +9,9 @@ def process_data( ):
     MAX_FLOWIO=np.max(data)
     data=data/MAX_FLOWIO
     data_range= data.shape[0]
-    Startindex,Endindex=0,int(DAYTIMESTEP*15)
+    Startindex,Endindex=0,int(DAYTIMESTEP*22)
     interval_p,interval_t=1,7
-    depends = [range(1, len_c+1),
+    depends = [range(len_c+1,1,-1),
                [interval_p * DAYTIMESTEP * i for i in range(1, len_p + 1)],
                [interval_t * DAYTIMESTEP * i for i in range(1, len_t + 1)]]
 
